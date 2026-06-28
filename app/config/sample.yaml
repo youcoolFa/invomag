@@ -1,0 +1,24 @@
+# config/bank_statement.yaml
+
+statement_type: "bank_savings"
+version: "poc_v1"
+
+fields:
+  - field_name: account_number
+    pdf_keyword: "Account Number"
+    excel_cell: "B3"
+
+  - field_name: statement_date
+    pdf_keyword: "Statement Date"
+    excel_cell: "D3"
+
+  - field_name: transactions
+    pdf_keyword: "Transaction Details"
+    is_table: true
+    columns:
+      - name: date
+        excel_column: "A"
+      - name: description
+        excel_column: "B"
+      - name: amount
+        excel_column: "C"

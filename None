@@ -1,0 +1,168 @@
+[
+  {
+    "page": 1,
+    "width": 612,
+    "height": 792,
+    "text_blocks": [
+      {
+        "text": "Today (16-Apr-2026): Currency HKD USD call & checking Blackrock USD MMF CNY CHF **Account Bal 23,818.35 0.00 USD2.7mio 74.27 0 ** NOT include settlement today Today’s settlement: Description Currency Transaction Amount Trade Date Settlement Date 700.HK - BOT 2,000 shares @ HKD 491.40 HKD (985,340.74) 14-Apr-26 16-Apr-26 700.HK - BOT 2,000 shares @ HKD 493 HKD (988,548.81) 14-Apr-26 16-Apr-26 700.HK AQ - BOT 540 shares @ HKD 586.6451 HKD (317,105.35) 14-Apr-26 16-Apr-26 Deposit(s) maturing today: Currency Principal P + I at Maturity Int. rate %p.a. From To USD 100,088.89 100,151.17 3.2 09-Apr-26 16-Apr-26 Existing deposit(s): Currency Principal P + I at Maturity Int. rate %p.a. From To USD 466,242.86 466,615.86 3.2 08-Apr-26 17-Apr-26 USD 140,566.85 140,654.31 3.2 13-Apr-26 20-Apr-26 Existing loan(s): Currency Principal P + I at Maturity Int. rate %p.a. From To CHF 251,329.52 251,529.08 0.95283 31-Mar-26 30-Apr-26 Future Settlement: Nil AQ/ DQ KO: Description Currency Transaction Amount KO Date Settlement Date 817.HK AQ - BOT 105,000 shares @ HKD 1.2724 - KO HKD (133,767.00) 15-Apr-26 17-Apr-26 9988.HK 700.HK No of shares (Net of unsettled shares): 32,174 104,189 Average cost (HKD): 104.6121 565.7113 AQDQ Concentration: Notional USD (Equity) AUM (USD) Concentration (% AUM) Limit* Scenario 11,578,336.53 18,689,823.08 61.95% 80% With loan 11,578,336.53 18,367,994.08 63.04% 80% Net of loan *Standard limit is 60%. Increased to 80% until 13-Nov-26 Surplus as of 15-Apr-26 USD 8mio ***This is prepared as per your request and for discussion purpose only. Please refer to official statements and advices generated and sent by post to your mailing address from Citi Private Bank for your own record. ***",
+        "x0": 52.44,
+        "top": 56.549999999999955,
+        "x1": 541.8139600000001,
+        "bottom": 506.55999999999995
+      }
+    ],
+    "tables": [
+      [
+        [
+          "Currency",
+          "HKD",
+          "USD call & checking",
+          "Blackrock USD MMF",
+          "CNY",
+          "CHF"
+        ],
+        [
+          "**Account Bal",
+          "23,818.35",
+          "0.00",
+          "USD2.7mio",
+          "74.27",
+          "0"
+        ]
+      ],
+      [
+        [
+          "Description",
+          "Currency",
+          "Transaction Amount",
+          "Trade Date",
+          "Settlement Date"
+        ],
+        [
+          "700.HK - BOT 2,000 shares @ HKD 491.40",
+          "HKD",
+          "(985,340.74)",
+          "14-Apr-26",
+          "16-Apr-26"
+        ],
+        [
+          "700.HK - BOT 2,000 shares @ HKD 493",
+          "HKD",
+          "(988,548.81)",
+          "14-Apr-26",
+          "16-Apr-26"
+        ],
+        [
+          "700.HK AQ - BOT 540 shares @ HKD 586.6451",
+          "HKD",
+          "(317,105.35)",
+          "14-Apr-26",
+          "16-Apr-26"
+        ]
+      ],
+      [
+        [
+          "Currency",
+          "Principal",
+          "P + I at Maturity",
+          "Int. rate %p.a.",
+          "From",
+          "To"
+        ],
+        [
+          "USD",
+          "100,088.89",
+          "100,151.17",
+          "3.2",
+          "09-Apr-26",
+          "16-Apr-26"
+        ]
+      ],
+      [
+        [
+          "Currency",
+          "Principal",
+          "P + I at Maturity",
+          "Int. rate %p.a.",
+          "From",
+          "To"
+        ],
+        [
+          "USD",
+          "466,242.86",
+          "466,615.86",
+          "3.2",
+          "08-Apr-26",
+          "17-Apr-26"
+        ],
+        [
+          "USD",
+          "140,566.85",
+          "140,654.31",
+          "3.2",
+          "13-Apr-26",
+          "20-Apr-26"
+        ]
+      ],
+      [
+        [
+          "Currency",
+          "Principal",
+          "P + I at Maturity",
+          "Int. rate %p.a.",
+          "From",
+          "To"
+        ],
+        [
+          "CHF",
+          "251,329.52",
+          "251,529.08",
+          "0.95283",
+          "31-Mar-26",
+          "30-Apr-26"
+        ]
+      ],
+      [
+        [
+          "Description",
+          "Currency",
+          "Transaction Amount",
+          "KO Date",
+          "Settlement Date"
+        ],
+        [
+          "817.HK AQ - BOT 105,000 shares @ HKD 1.2724 - KO",
+          "HKD",
+          "(133,767.00)",
+          "15-Apr-26",
+          "17-Apr-26"
+        ]
+      ],
+      [
+        [
+          "Notional USD (Equity)",
+          "AUM (USD)",
+          "Concentration (% AUM)",
+          "Limit*",
+          "Scenario"
+        ],
+        [
+          "11,578,336.53",
+          "18,689,823.08",
+          "61.95%",
+          "80%",
+          "With loan"
+        ],
+        [
+          "11,578,336.53",
+          "18,367,994.08",
+          "63.04%",
+          "80%",
+          "Net of loan"
+        ]
+      ]
+    ],
+    "full_text": "Today (16-Apr-2026):\nCurrency HKD USD call & checking Blackrock USD MMF CNY CHF\n**Account Bal 23,818.35 0.00 USD2.7mio 74.27 0\n** NOT include settlement today\nToday’s settlement:\nDescription Currency Transaction Amount Trade Date Settlement Date\n700.HK - BOT 2,000 shares @ HKD 491.40 HKD (985,340.74) 14-Apr-26 16-Apr-26\n700.HK - BOT 2,000 shares @ HKD 493 HKD (988,548.81) 14-Apr-26 16-Apr-26\n700.HK AQ - BOT 540 shares @ HKD 586.6451 HKD (317,105.35) 14-Apr-26 16-Apr-26\nDeposit(s) maturing today:\nCurrency Principal P + I at Maturity Int. rate %p.a. From To\nUSD 100,088.89 100,151.17 3.2 09-Apr-26 16-Apr-26\nExisting deposit(s):\nCurrency Principal P + I at Maturity Int. rate %p.a. From To\nUSD 466,242.86 466,615.86 3.2 08-Apr-26 17-Apr-26\nUSD 140,566.85 140,654.31 3.2 13-Apr-26 20-Apr-26\nExisting loan(s):\nCurrency Principal P + I at Maturity Int. rate %p.a. From To\nCHF 251,329.52 251,529.08 0.95283 31-Mar-26 30-Apr-26\nFuture Settlement: Nil\nAQ/ DQ KO:\nDescription Currency Transaction Amount KO Date Settlement Date\n817.HK AQ - BOT 105,000 shares @ HKD 1.2724 - KO HKD (133,767.00) 15-Apr-26 17-Apr-26\n9988.HK 700.HK\nNo of shares (Net of unsettled shares): 32,174 104,189\nAverage cost (HKD): 104.6121 565.7113\nAQDQ Concentration:\nNotional USD (Equity) AUM (USD) Concentration (% AUM) Limit* Scenario\n11,578,336.53 18,689,823.08 61.95% 80% With loan\n11,578,336.53 18,367,994.08 63.04% 80% Net of loan\n*Standard limit is 60%. Increased to 80% until 13-Nov-26\nSurplus as of 15-Apr-26 USD 8mio\n***This is prepared as per your request and for discussion purpose only. Please refer to official statements and advices generated\nand sent by post to your mailing address from Citi Private Bank for your own record. ***"
+  }
+]

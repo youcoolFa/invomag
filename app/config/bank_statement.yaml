@@ -1,0 +1,133 @@
+statement_type: "cash_management_report"
+version: "poc_v1"
+description: "Citi Cash Management Report (16-Apr-2026)"
+
+fields:
+  # === Account Balance ===
+  - field_name: report_date
+    pdf_keyword: "Description"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B3"
+    excel_header: "報告日期"
+    data_type: date
+    marked_number: 1
+
+  - field_name: hkd_account_balance
+    pdf_keyword: "23,818.35"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B4"
+    excel_header: "HKD 戶口餘額"
+    data_type: number
+    marked_number: 2
+
+  # === Today's Settlement ===
+  - field_name: settlement_1_amount
+    pdf_keyword: "(985,340.74)"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "C7"
+    excel_header: "今日結算金額 1"
+    data_type: number
+    marked_number: 3
+
+  - field_name: settlement_2_amount
+    pdf_keyword: "988,548.81"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "C8"
+    excel_header: "今日結算金額 2"
+    data_type: number
+    marked_number: 4
+
+  - field_name: settlement_3_amount
+    pdf_keyword: "(317,105.35)"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "C9"
+    excel_header: "今日結算金額 3"
+    data_type: number
+    marked_number: 5
+
+  # === Deposit maturing today ===
+  - field_name: maturing_deposit_principal
+    pdf_keyword: "100,088.89"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B12"
+    excel_header: "今日到期存款本金"
+    data_type: number
+    marked_number: 6
+
+  # === Existing Deposits ===
+  - field_name: existing_deposit_1
+    pdf_keyword: "466,242.86"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B14"
+    excel_header: "現有存款 1"
+    data_type: number
+    marked_number: 7
+
+  - field_name: existing_deposit_2
+    pdf_keyword: "140,566.85"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B15"
+    excel_header: "現有存款 2"
+    data_type: number
+    marked_number: 8
+
+  # === Existing Loan ===
+  - field_name: existing_loan_chf
+    pdf_keyword: "251,329.52"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B18"
+    excel_header: "現有貸款 (CHF)"
+    data_type: number
+    marked_number: 9
+
+  # === AQ/DQ KO ===
+  - field_name: aq_dq_ko_amount
+    pdf_keyword: "(133,767.00)"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "C21"
+    excel_header: "AQ/DQ KO 金額"
+    data_type: number
+    marked_number: 10
+
+  # === Portfolio Holdings ===
+  - field_name: shares_9988hk
+    pdf_keyword: "32,174"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B24"
+    excel_header: "9988.HK 股數"
+    data_type: number
+    marked_number: 11
+
+  - field_name: shares_700hk
+    pdf_keyword: "104,189"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B25"
+    excel_header: "700.HK 股數"
+    data_type: number
+    marked_number: 12
+
+  # === AQDQ Concentration ===
+  - field_name: aqdq_concentration_with_loan
+    pdf_keyword: "61.95%"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "D28"
+    excel_header: "AQDQ 集中度 (含貸款)"
+    data_type: percentage
+    marked_number: 13
+
+  - field_name: aqdq_concentration_net_loan
+    pdf_keyword: "63.04%"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "D29"
+    excel_header: "AQDQ 集中度 (淨貸款)"
+    data_type: percentage
+    marked_number: 14
+
+  # === Surplus ===
+  - field_name: surplus_amount
+    pdf_keyword: "USD 8mio"
+    excel_file_name: "Task 2_Sample of Matching_Excel_stock positions "
+    excel_cell: "B32"
+    excel_header: "Surplus"
+    data_type: string
+    marked_number: 15
