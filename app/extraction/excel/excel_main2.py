@@ -81,3 +81,4 @@ if __name__ == "__main__":
     print(df)
     print(f"欄位名稱：{list(df.columns)}")
     print(f"資料筆數：{len(df)}")
+    print()
