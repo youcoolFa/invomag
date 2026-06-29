@@ -42,25 +42,34 @@ def normalize_dataframes(
 
 
 def _convert_excel_date_to_str(date_val):
+    # openpyxl 對有日期格式的儲存格會回傳 datetime 物件
+    if isinstance(date_val, datetime):
+        return date_val.strftime("%d/%b/%y")
+
+    if isinstance(date_val, str):
+        for fmt in ("%Y/%m/%d", "%Y-%m-%d", "%d/%b/%y", "%d-%b-%y", "%d-%b-%Y"):
+            try:
+                return datetime.strptime(date_val, fmt).strftime("%d/%b/%y")
+            except ValueError:
+                continue
+        return date_val
+
+    # Excel 數字格式日期，例如 20260414 (YYYYMMDD)
     try:
         date_str = str(int(date_val))
         if len(date_str) == 8:
-            dt = datetime.strptime(date_str, "%Y%m%d")
-            return dt.strftime("%d/%b/%y")
+            return datetime.strptime(date_str, "%Y%m%d").strftime("%d/%b/%y")
         return date_str
-    except:
+    except (ValueError, TypeError):
         return date_val
 
 
 def _normalize_pdf_date(date_val):
-    try:
-        if isinstance(date_val, str):
-            for fmt in ["%d-%b-%y", "%d/%b/%y"]:
-                try:
-                    dt = datetime.strptime(date_val, fmt)
-                    return dt.strftime("%d/%b/%y")
-                except:
-                    continue
-        return date_val
-    except:
-        return date_val
+    if isinstance(date_val, str):
+        # Task1 PDF 日期為 2 位數年（14-Apr-26），Task2 Accumulator PDF 為 4 位數年（16-Mar-2026）
+        for fmt in ("%d-%b-%y", "%d/%b/%y", "%d-%b-%Y", "%d/%b/%Y"):
+            try:
+                return datetime.strptime(date_val, fmt).strftime("%d/%b/%y")
+            except ValueError:
+                continue
+    return date_val

@@ -4,7 +4,8 @@ from pathlib import Path
 from app.extraction.pdf.pattern_recon import (
     parse_settlement_records,
     parse_future_settlement,
-    parse_aq_dq_ko
+    parse_aq_dq_ko,
+    parse_accumulator_pdf_text
 )
 # from pdf_to_json import extract_pdf_to_json
 
@@ -94,6 +95,38 @@ def process_aq_dq_ko(data) -> pd.DataFrame:
     else:
         print("沒有解析到任何交易紀錄\n")
         return pd.DataFrame()
+
+
+def process_accumulator(data) -> pd.DataFrame:
+    full_text = data[0]["full_text"]
+    print("=== 開始解析 Accumulator 合約 ===\n")
+
+    records = parse_accumulator_pdf_text(full_text)
+    if records:
+        print(f"成功解析 {len(records)} 筆合約\n")
+        df = pd.DataFrame(records)
+        save_fields_to_csv(df, "accumulator_fields.csv")
+        return df
+    else:
+        print("沒有解析到任何合約資料\n")
+        return pd.DataFrame()
+
+
+# ====================== Task -> PDF 解析函數 註冊表 ======================
+# 新增 task 類型時，只需在這裡登記對應的解析函數，不需要修改 pdf_main.py。
+TASK_PARSERS = {
+    "task1": process_todays_settlement,
+    "task2": process_accumulator,
+}
+
+
+def get_pdf_parser_for_task(task) -> callable:
+    """依 task["task_name"] 前綴查表，回傳對應的 PDF 解析函數。"""
+    task_name = task.get("task_name", "") if isinstance(task, dict) else ""
+    for prefix, parser in TASK_PARSERS.items():
+        if task_name.startswith(prefix):
+            return parser
+    raise ValueError(f"找不到 task_name='{task_name}' 對應的 PDF 解析函數")
 
 
 # if __name__ == "__main__":

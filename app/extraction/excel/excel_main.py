@@ -1,42 +1,50 @@
-# excel_main.py
 import pandas as pd
 from pathlib import Path
 from openpyxl import load_workbook
 from openpyxl.utils import get_column_letter
 
-OUTPUT_DIR = Path(__file__).resolve().parent / "output"
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-
 def excel_to_dataframe(excel_path: Path) -> pd.DataFrame:
     wb = load_workbook(excel_path, data_only=True)
+    print(f"=== 檔案：{excel_path.name} ===")
+    print(f"工作表列表：{wb.sheetnames}")
+
     all_sheets_data = []
 
     for sheet_name in wb.sheetnames:
         ws = wb[sheet_name]
         data = list(ws.iter_rows(min_row=1, values_only=True))
 
-        if len(data) < 2:
+        # 過濾完全空白的列
+        data = [row for row in data if not all(v is None for v in row)]
+
+        print(f"\n工作表 [{sheet_name}]：原始資料列數 = {len(data)}")
+
+        if len(data) == 0:
+            print("→ 此工作表完全空白，跳過")
             continue
 
-        header_row = 0
-        headers = list(data[header_row])
+        # 取第一行當表頭
+        headers = list(data[0])
+        headers = [
+            h if h else f"Unnamed_{get_column_letter(col_idx + 1)}"
+            for col_idx, h in enumerate(headers)
+        ]
+        print(f"→ 表頭：{headers}")
 
         records = []
-        for row_idx in range(header_row + 1, len(data)):
-            row_values = data[row_idx]
+        for row_values in data[1:]:
             if all(v is None for v in row_values):
                 continue
-
-            record = {}
-            for col_idx, header in enumerate(headers):
-                col_letter = get_column_letter(col_idx + 1)
-                record[header if header else f"Unnamed_{col_letter}"] = row_values[col_idx]
+            record = {headers[col_idx]: row_values[col_idx] for col_idx in range(len(headers))}
             records.append(record)
 
         if records:
             df = pd.DataFrame(records)
-            all_sheets_data.append(df)
+        else:
+            df = pd.DataFrame(columns=headers)
+
+        print(f"→ 讀取到 {len(df)} 筆資料")
+        all_sheets_data.append(df)
 
     wb.close()
 
@@ -46,21 +54,30 @@ def excel_to_dataframe(excel_path: Path) -> pd.DataFrame:
         return pd.DataFrame()
 
 
-# ====================== 修改重點 ======================
-
 def main_excel(EXCEL_PATHS):
-    """接收 Excel 路徑列表，回傳合併後的 DataFrame"""
+    if isinstance(EXCEL_PATHS, (str, Path)):
+        EXCEL_PATHS = [EXCEL_PATHS]
+
     all_dfs = []
     for excel_path in EXCEL_PATHS:
-        if not Path(excel_path).exists():
-            print(f"⚠️ 找不到 Excel 檔案：{excel_path}")
+        excel_path = Path(excel_path)
+        if not excel_path.exists():
+            print(f"⚠️ 找不到檔案：{excel_path}")
             continue
-        df = excel_to_dataframe(Path(excel_path))
-        if not df.empty:
+        df = excel_to_dataframe(excel_path)
+        if not df.empty or len(df.columns) > 0:
             all_dfs.append(df)
-            print(f"✅ 已讀取 Excel：{excel_path}，共 {len(df)} 筆")
 
     if all_dfs:
         return pd.concat(all_dfs, ignore_index=True)
     else:
         return pd.DataFrame()
+
+
+if __name__ == "__main__":
+    EXCEL_PATHS = ["/Users/mac/python project/invomag/app/extraction/excel/input/task2_700.xlsx"]
+    df = main_excel(EXCEL_PATHS)
+    print("\n=== 最終結果 ===")
+    print(df)
+    # print(f"欄位名稱：{list(df.columns)}")
+    # print(f"資料筆數：{len(df)}")

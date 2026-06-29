@@ -4,16 +4,21 @@
 
 ### 待辦事項
 
-- [] **task2 and task3 mapping**
+- [X] **test task1, task2**
+  - task1 test(empty excel/ excel X 2 pdf)
+  - task2 test(empty excel/ excel X pdf)
+  
+
+  
+### 完成事項
+- [X] **task2 and task3 mapping**
   - task2 and task3 mapping with symbol
   - task2&3 excel column name
   - pdf extraction result
   - pdf column name
   - mapping with code
-  
-
-  
-### 完成事項
+  - task1,2,3 UI done
+  - 
 - [X] **UI**
   -
 - [X] **mapping problem**

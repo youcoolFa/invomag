@@ -57,7 +57,11 @@ PATTERNS_ACCUMULATOR = {
     ),
     "Bloomberg Ticker": (
         r"Bloomberg Ticker\s*:\s*"              # 欄位名稱
-        r"(.+?)(?:\n|$)"                        # 擷取值
+        r"(\d+\s*HK)"                           # 擷取股票代號（例如 700 HK）
+        # 注意：文件標題行也含有「Bloomberg Ticker :」字樣，但後面接的是
+        # Reference No.（如 "TIP Reference No. : ECU082-..."）而非真正的代號，
+        # 用 \d+\s*HK 限定股票代號格式，可跳過該誤判，比對到後面 "Shares :" 段落
+        # 真正的 "(Bloomberg Ticker : 700 HK)"。
     ),
     "Buyer of Shares": (
         r"Buyer of Shares\s*:\s*"               # 欄位名稱
@@ -94,6 +98,10 @@ PATTERNS_ACCUMULATOR = {
     "Accumulating Forward Price (AFP)": (
         r"Accumulating Forward Price \(AFP\)\s*:\s*HKD\s*"  # 欄位名稱 + 貨幣單位
         r"([\d.]+)"                                         # 擷取價格
+    ),
+    "AFP Percentage of Initial Price": (
+        r"Accumulating Forward Price \(AFP\)\s*:\s*HKD\s*[\d.]+\s*"  # 同一行，跳過絕對價格
+        r"\(\s*([\d.]+)%\s*of Initial Price\)"                       # 擷取括號內的百分比，即 Strike (%)
     ),
     "Closing Price": (
         r"Closing Price\s*:\s*"                 # 欄位名稱
@@ -228,7 +236,7 @@ def parse_accumulator_pdf_text(text: str) -> List[Dict[str, Any]]:
                        "Daily Number of Shares (DS)",
                        "Step-up Daily Number of Shares (St-DS)"]:
                 value = int(value)
-            elif key in ["Initial Price", "Accumulating Forward Price (AFP)"]:
+            elif key in ["Initial Price", "Accumulating Forward Price (AFP)", "AFP Percentage of Initial Price"]:
                 value = float(value)
             elif key == "Maximum Number of Nominal Shares":
                 value = int(value.replace(",", ""))
@@ -238,6 +246,7 @@ def parse_accumulator_pdf_text(text: str) -> List[Dict[str, Any]]:
         record = {
             "Ticker": data.get("Bloomberg Ticker", "").replace(".HK", ""),
             "type": "Accumulator",
+            "aq_dq": "AQ",  # 目前只支援 Accumulator 合約；若未來解析到 Decumulator 合約，這裡需改為 "DQ"
             "Action": "Buy" if data.get("Buyer of Shares") else None,
             "#": data.get("Daily Number of Shares (DS)"),
             "price": data.get("Initial Price"),
@@ -251,6 +260,8 @@ def parse_accumulator_pdf_text(text: str) -> List[Dict[str, Any]]:
             "daily_shares": data.get("Daily Number of Shares (DS)"),
             "step_up_daily_shares": data.get("Step-up Daily Number of Shares (St-DS)"),
             "max_nominal_shares": data.get("Maximum Number of Nominal Shares"),
+            "tenor": data.get("Maximum Number of Scheduled Trading Days"),
+            "strike_pct": data.get("AFP Percentage of Initial Price"),
             "ko": None,
         }
         records.append(record)
