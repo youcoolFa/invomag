@@ -28,7 +28,7 @@ pattern_future = (
 
 pattern_ko = (
     r"(\d+\.HK)"                        # 股票代號
-    r"(?:\s+AQ)?"                       # 可選 AQ
+    r"(?:\s+(AQ|DQ))?"                  # 可選 AQ/DQ（明確區分，供 Task3 比對用）
     r"\s*-\s*BOT\s+"                    # BOT
     r"([\d,]+)\s+shares\s+@"            # 股數
     r"\s*HKD\s+([\d.]+)\s+"             # 價格
@@ -134,9 +134,9 @@ def parse_settlement_records(
 
         record = {
             "Ticker": m.group(1).replace(".HK", ""),   # ← 已移除 .HK
-            "type": "Accumulator" if "AQ" in m.group(0) else "Normal",
+            "type": "Accumulator" if "AQ" in m.group(0) else "DQ",
             "Action": "Buy",
-            "#": int(m.group(2).replace(",", "")),
+            "#": int(m.group(2).replace(",", "")), #no of shares
             "price": float(m.group(3)),
             "total_amount": float(m.group(4).replace(",", "")),
             "trade_date": m.group(5),
@@ -170,7 +170,7 @@ def parse_future_settlement(
 
         record = {
             "Ticker": m.group(1).replace(".HK", ""),   # ← 已移除 .HK
-            "type": "Accumulator" if "AQ" in m.group(0) else "Normal",
+            "type": "Accumulator" if "AQ" in m.group(0) else "DQ",
             "Action": "Buy",
             "#": int(m.group(2).replace(",", "")),
             "price": float(m.group(3)),
@@ -202,18 +202,18 @@ def parse_aq_dq_ko(
     content = section_match.group(0)
 
     for m in re.finditer(pattern_ko, content):
-        ko_flag = "KO" if "- KO" in m.group(0) else None
+        aq_dq = m.group(2)  # "AQ" 或 "DQ"，找不到時為 None
 
         record = {
             "Ticker": m.group(1).replace(".HK", ""),   # ← 已移除 .HK
-            "type": "Accumulator" if "AQ" in m.group(0) else "Normal",
+            "type": aq_dq,  # "AQ" 或 "DQ"
             "Action": "Buy",
-            "#": int(m.group(2).replace(",", "")),
-            "price": float(m.group(3)),
-            "total_amount": float(m.group(4).replace(",", "")),
-            "Date": m.group(5),
-            "settlement_date": m.group(6),
-            "ko": ko_flag,
+            "#": int(m.group(3).replace(",", "")),
+            "price": float(m.group(4)),
+            "total_amount": float(m.group(5).replace(",", "")),
+            "ko_date": m.group(6),
+            "settlement_date": m.group(7),
+            "ko": "KO",  # 這個函數只解析「AQ/DQ KO:」區段，回傳的記錄必定是已 KO 的
         }
         records.append(record)
 

@@ -9,6 +9,8 @@ sys.path.append(str(Path(__file__).resolve().parents[2]))
 # ====================== 匯入模組 ======================
 from app.task.task_mapping import get_task_template
 from app.task1_main3 import main, OUTPUT_DIR
+from app.task3_main import main as run_task3
+from app.extraction.excel.excel_main import main_excel
 
 st.set_page_config(page_title="PDF vs Excel 比對工具", layout="wide")
 st.title("📊 PDF vs Excel 比對與更新工具")
@@ -36,10 +38,18 @@ def run_task(task_key: str, task_name: str, pdf_files, excel_file):
 
             task = get_task_template(task_name)
             task["excel"] = str(excel_path)
-            task["pdf_path"] = str(pdf_paths[0])
-            task["pdf_to_json"] = str(temp_dir / "extracted.json")
 
-            result_path = main(task)
+            if task_key == "task3":
+                # Task3 需要兩份 PDF：PDF(A) 結算報告 + PDF(B) Accumulator 合約確認書
+                task["pdf_path_a"] = str(pdf_paths[0])
+                task["pdf_path_b"] = str(pdf_paths[1])
+                task["pdf_to_json_a"] = str(temp_dir / "extracted_a.json")
+                task["pdf_to_json_b"] = str(temp_dir / "extracted_b.json")
+                result_path = run_task3(task)
+            else:
+                task["pdf_path"] = str(pdf_paths[0])
+                task["pdf_to_json"] = str(temp_dir / "extracted.json")
+                result_path = main(task)
 
             result_key = f"{task_key}_result"
             if result_path:
@@ -56,7 +66,7 @@ def run_task(task_key: str, task_name: str, pdf_files, excel_file):
 
 
 def render_download_button(task_key: str):
-    """若該任務已有執行結果，顯示對應的下載按鈕。"""
+    """若該任務已有執行結果，顯示對應的下載按鈕與結果表格預覽。"""
     result_path = st.session_state.get(f"{task_key}_result")
     if not result_path:
         return
@@ -70,6 +80,14 @@ def render_download_button(task_key: str):
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             key=f"{task_key}_download",
         )
+
+    try:
+        result_df = main_excel([result_path])
+        if not result_df.empty:
+            st.caption("📋 最終結果預覽")
+            st.dataframe(result_df, use_container_width=True)
+    except Exception:
+        pass  # 預覽失敗不影響下載功能
 
 
 def render_task_block(task_key: str, task_name: str, title: str, pdf_labels: list, supported: bool = True):
@@ -129,5 +147,4 @@ with col3:
         task_name="task3",
         title="Task3：PDF(A) + PDF(B) → Excel(B)",
         pdf_labels=["PDF(A) 結算報告", "PDF(B) Accumulator 合約確認書"],
-        supported=False,
     )
