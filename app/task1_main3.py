@@ -91,9 +91,14 @@ def main(task):
                     cell.number_format = "yyyy/mm/dd"
 
     # 產生新的檔案名稱
+    # 注意：output_prefix 與 task_name 是兩個不同用途的欄位——task_name 用來決定
+    # PDF 解析器/欄位對應要走哪個分流（見 get_pdf_parser_for_task / get_pdf_column_mapping），
+    # output_prefix 才是真正決定輸出檔名前綴的欄位。Task3 借用 Task2 的解析/比對邏輯時，
+    # 會把 task_name 暫時改成 "task2" 以便分流，但希望輸出檔名仍是 "task3_..."，
+    # 所以用 output_prefix 覆寫，沒有設定時才退回用 task_name。
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    task_name = task.get("task_name", "task")
-    new_filename = f"{task_name}_Updated_{timestamp}.xlsx"
+    output_prefix = task.get("output_prefix") or task.get("task_name", "task")
+    new_filename = f"{output_prefix}_Updated_{timestamp}.xlsx"
     new_file_path = OUTPUT_DIR / new_filename
 
     wb.save(new_file_path)

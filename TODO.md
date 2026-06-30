@@ -4,26 +4,18 @@
 
 ### 待辦事項
 
-- [ ] **Task3 - DQ 真實資料驗證**
-  - 目前僅使用合成 DQ 文字進行測試
-  - 需取得含有 **DQ KO** 記錄的真實 PDF
-  - 完成端對端驗證（解析 → 匹配 → Remarks 回填）
-
-- [ ] **Task3 - 匹配邏輯最終確認**
-  - 確認 `task3_main.py` 中的 `_MATCH_FIELDS` 已正確對應 `type` 欄位
-  - 確認 `ko_lookup` 字典的鍵值建構與 `type` 欄位一致
-  - 測試混合 AQ + DQ 的 Excel 回填情境
-
-- [ ] **Task3 - 異常情況處理**
-  - 評估是否需要在 `parse_aq_dq_ko()` 中加入 `type` 為 `None` 時的警告訊息
-
-- [ ] **Task3 - 回歸測試**
-  - 確認已存在 Remarks 的資料不會被覆寫
-  - 測試多頁 PDF 的解析與回填行為
+（目前無待辦事項）
 
 ### 完成事項
 
 - [X] **task3**
+  - 完成端對端驗證（使用真實 AQ/DQ KO PDF）
+  - 修正 Remarks 回填為 "KO"
+  - 修正 KO Date / Expiry Date 正確使用 PDF 中的 KO 日期（2026/04/16）
+  - 新增 # Shares Traded 欄位回填（從 PDF(A) 的 # 欄位取得）
+  - 修正輸出檔名 bug：引入 `output_prefix` 欄位，避免 task_name 被覆寫後影響檔名
+  - Task1 / Task2 命名不受影響
+
 - [X] **test task1, task2**
   - task1 test (empty excel / excel X 2 pdf)
   - task2 test (empty excel / excel X pdf)
@@ -62,5 +54,5 @@
 
 ### 備註
 
-- 目前重點先處理 Task 1 的流程
+- Task3 已完成完整驗證與修正
 - 所有路徑建議使用相對路徑或設定 config 統一管理
